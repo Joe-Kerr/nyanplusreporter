@@ -1,21 +1,21 @@
-#Nyan Cat Reporter Plus for Mocha
+# Nyan Cat Reporter Plus for Mocha
 
 Make unit testing fun. Plays the (in-)famous Nyan cat song while running through your tests. But you need to feed Nyan cat tests. Otherwise it is going to fly off.
 
 
-##Features
+## Features
 
 - Play the actual Nyan cat song!
 - Delay console outputs because they make Nyan cat sad.
 - Fix rainbowification (e.g. on Windows <10).
 
 
-##Install
+## Install
 
 npm install nyanPlusReporter --save-dev
 
 
-##Use
+## Use
 
 Append, or add to your mocha.opts either
 
@@ -28,7 +28,7 @@ or
 depending on whether you have installed Mocha locally or globally (see e.g. https://stackoverflow.com/questions/21367820/how-to-create-a-custom-reporter-with-mocha).
 
 
-##Notes
+## Notes
 
 - You need to have a couple of tests in order to hear anything. That is a feature motivating you to add more tests.
 
@@ -39,7 +39,7 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 - Tested on Win7, Win10, Mac OSX (vm), Debian (vm), Fedora (vm)
 
 
-##Bugs, limitations, caveats, etc
+## Bugs, limitations, caveats, etc
 
 - Possibly jelous co-workers who do not have as much fun as you do.
 
@@ -54,12 +54,12 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 [ ] Ctrl-c does not flush the console buffer because my listeners to SIGINT (or exit) are never called. #TODO
 
 
-##Versions
+## Versions
 
 0.9.0 - Public release.
 
 
-##Copyright
+## Copyright
 
 MIT
 
