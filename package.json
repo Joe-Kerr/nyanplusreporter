@@ -17,6 +17,7 @@
     "test",
     "media"
   ],
+  "repository": "github:Joe-Kerr/nyanplusreporter", 
   "author": "joe_kerr / Joe-Kerr",
   "license": "MIT",
   "dependencies": {
