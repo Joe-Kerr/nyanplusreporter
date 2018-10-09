@@ -56,7 +56,7 @@ NyanPlus.prototype.flushConsole = function(buffer) {
 	for(i=0, ii=buffer.length; i<ii; i++) {
 		console.log.apply(null, buffer[i])
 	}	
-	buffer = [];
+	buffer.splice(0, buffer.length);
 }
 
 NyanPlus.prototype.onStart = function() {
