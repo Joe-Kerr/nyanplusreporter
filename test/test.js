@@ -68,6 +68,8 @@ test("Console buffer is flushed", ()=>{
 	
 	sample.restoreConsole();
 	sample.flushConsole(buffer);
+	
+	assert.equal(sample.hiddenFromNyanCat.length, 0);
 });
 
 //At least on Win7, child-process close event not emitted which makes the sync option useless and hence automatic testing a bit difficult. On Win10, it works. 
