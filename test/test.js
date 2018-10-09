@@ -100,20 +100,15 @@ if(os !== "win32" || version[0] >= 10) {
 else
 	test("Audio probably played");
 
-
-test("Ctrl-c should flush console buffer - but it doesn't. Listeners for SIGINT in test() or reporter constructor are not triggered. #TODO"/*, ()=>{
-	//1) https://stackoverflow.com/questions/39255593/how-to-mock-readline-onsigint
-	//2) https://stackoverflow.com/questions/40905239/how-write-tests-for-checking-behaviour-during-graceful-shutdown-in-node-js
+test("Ctrl-c flushes console buffer", ()=>{	
+	sample.overrideConsole(sample.hiddenFromNyanCat);
+	console.log(".");	
 	
-	let buffer = [];
-
-	testConsoleOverride(buffer, sample);	
+	assert.equal(sample.hiddenFromNyanCat.length, 1);
 	
-	return new Promise((resolve)=>{
-		process.once("SIGINT", ()=>{
-			assert.equal(buffer.length, 0)
-		});
-
-		process.kill(process.pid, "SIGINT");
+	process.once("SIGINT", ()=>{
+		assert.equal(sample.hiddenFromNyanCat.length, 0);
 	});
-}*/);
+	
+	process.emit("SIGINT");
+});
