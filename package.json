@@ -1,6 +1,6 @@
 {
   "name": "nyanplusreporter",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Nyan Cat Reporter Plus for Mocha",
   "main": "src/nyanPlus.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "src",
     "test",
     "media",
-	"readme.md"
+    "readme.md"
   ],
   "directories": [
     "src",

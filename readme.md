@@ -56,7 +56,11 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 ## Versions
 
-0.9.0 - Public release.
+### 0.9.1 
+- Fixed: Broke the reference instead of emptying it in console flush (for whatever reason I forgot the actual assertion in the underlying unit test :s ). 
+
+### 0.9.0 
+- Public release.
 
 
 ## Copyright
