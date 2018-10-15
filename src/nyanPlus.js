@@ -18,7 +18,8 @@ function NyanPlus(runner) {
 	this.playInterval;
 	this.whereNyanCatLives = join(__dirname, "../media/Nyan_Cat_min_loop.wav");
 	this.duration = 26000;//3:26 || 0:26
-
+	this.sigintListener = null;
+	
 	console.log("\n"); //prevents Nyan Cat hurting its cute little head
 	
 	runner.on("start", function() {
@@ -28,9 +29,24 @@ function NyanPlus(runner) {
 	runner.on("end", function() {
 		_this.onEnd();
 	});
+	
+	//Ctrl-C	
+	process.on("SIGINT", function () {
+		_this.onSIGINT();
+	});		
 		
-	//#TODO: Never triggered :(
-	//process.once("SIGINT", function() { if(_this.hiddenFromNyanCat.length > 0) _this.flushConsole(_this.hiddenFromNyanCat) }); //Ctrl-C	
+	if(process.platform === "win32") {
+		var rl = require("readline").createInterface({
+			input: process.stdin,
+			output: process.stdout
+		});
+
+		rl.on("SIGINT", function () {
+			process.emit("SIGINT");
+		});
+		
+		this.sigintListener = rl;
+	}
 }
 
 NyanPlus.prototype.overrideConsole = function(buffer) {
@@ -75,6 +91,19 @@ NyanPlus.prototype.onEnd = function() {
 	this.flushConsole(this.hiddenFromNyanCat);
 	
 	this.stop();
+	if(this.sigintListener != null) this.sigintListener.close();
+}
+
+NyanPlus.prototype.onSIGINT = function() {
+    Base.cursor.show();
+    for(var i=0; i<this.numberOfLines; i++) {
+      process.stdout.write("\n");
+    }	
+	this.onEnd(); 
+	if(process.listenerCount("SIGINT") === 1) {
+		process.exit(130); //http://tldp.org/LDP/abs/html/exitcodes.html
+		//process.exit();	//or just, #TODO?
+	}
 }
 
 NyanPlus.prototype.play = function() {

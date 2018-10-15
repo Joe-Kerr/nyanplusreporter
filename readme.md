@@ -51,10 +51,11 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 - Feature or not, on my Win7 (i5, 8GB) test system, the wav-player needs some time to spin up. The very first run may take some seconds. Consecutive runs may take up to 2 seconds. The wav-player module is only a middle man calling native audio players. So, I am not sure it can be sped up. It gets way better on an i7 with 16GB though.
 
-[ ] Ctrl-c does not flush the console buffer because my listeners to SIGINT (or exit) are never called. #TODO
-
 
 ## Versions
+
+### 0.10.1
+- Added: Ctrl-c flushes console buffer
 
 ### 0.9.1 
 - Fixed: Broke the reference instead of emptying it in console flush (for whatever reason I forgot the actual assertion in the underlying unit test :s ). 
@@ -65,7 +66,7 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 ## Copyright
 
-MIT
+MIT (c) Joe Kerr 2018
 
 The Nyan Cat song is free for non-commercial use (https://aidn.jp/about/ | accessed 25-Sep-2018).
 
