@@ -54,6 +54,9 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 ## Versions
 
+### 0.10.2
+- Fixed: Published branch to NPM instead of master (I am new to this, sorry.)
+
 ### 0.10.1
 - Added: Ctrl-c flushes console buffer
 
