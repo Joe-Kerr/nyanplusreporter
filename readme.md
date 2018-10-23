@@ -54,6 +54,9 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 ## Versions
 
+### 0.10.3
+- Changed: Fix in dependency allows to test playback on Win7 now.
+
 ### 0.10.2
 - Fixed: Published branch to NPM instead of master (I am new to this, sorry.)
 
@@ -61,7 +64,8 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 - Added: Ctrl-c flushes console buffer
 
 ### 0.9.1 
-- Fixed: Broke the reference instead of emptying it in console flush (for whatever reason I forgot the actual assertion in the underlying unit test :s ). 
+- Fixed: Broke the reference instead of emptying it in console flush. 
+- Fixed: Added missing assertion.
 
 ### 0.9.0 
 - Public release.
