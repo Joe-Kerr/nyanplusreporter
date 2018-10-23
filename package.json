@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "mocha": "^5.2.0",
-    "node-wav-player": "0.0.1",
+    "node-wav-player": "^0.0.2",
     "supports-color": "^5.5.0"
   },
   "devDependencies": {
