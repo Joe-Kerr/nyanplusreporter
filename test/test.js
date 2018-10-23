@@ -4,9 +4,6 @@ const proxyquire = require("proxyquire").noCallThru();;
 const supportsColor = {stdout: {level: 2}};
 const Sample = proxyquire("../src/nyanPlus.js", {"supports-color": supportsColor});
 
-const os = process.platform;
-const version = require("os").release().split(".");
-
 const fakeRunner = {
 	on: ()=>{},
 	once: ()=>{}
@@ -72,33 +69,29 @@ test("Console buffer is flushed", ()=>{
 	assert.equal(buffer.length, 0);
 });
 
-//At least on Win7, child-process close event not emitted which makes the sync option useless and hence automatic testing a bit difficult. On Win10, it works. 
-if(os !== "win32" || version[0] >= 10) {
-	test("Audio played.", function() {
-		this.timeout(6000);
-		
-		const player = require("node-wav-player");
-		const {join} = require("path");
-		
-		const start = Date.now();
-		return new Promise((resolve, reject)=>{
-			player.play({
-				path: join(__dirname, "./Nyan_Cat_unit_test.wav"), sync: true
-			})	
-			.then(()=>{	
-				(Date.now() - start > 3000) ? assert.ok(true) : assert.ok(false);
-				player.stop();
-				return resolve("yay");
-			})
-			.catch(function(error) {		
-				return reject("boo");
-			});	
-		
-		});
-	})
-}
-else
-	test("Audio probably played");
+//On slow computers, first run of this test may fail (timeout). Give it another shot and it will pass. Otherwise real fail.
+test("Audio played.", function() {
+	this.timeout(10000);
+	
+	const player = require("node-wav-player");
+	const {join} = require("path");
+	
+	const start = Date.now();
+	return new Promise((resolve, reject)=>{
+		player.play({
+			path: join(__dirname, "./Nyan_Cat_unit_test.wav"), sync: true
+		})	
+		.then(()=>{	
+			(Date.now() - start > 3000) ? assert.ok(true) : assert.ok(false);
+			player.stop();
+			return resolve("yay");
+		})
+		.catch(function(error) {		
+			return reject("boo");
+		});	
+	
+	});
+});
 
 test("Ctrl-c flushes console buffer", ()=>{	
 	sample.overrideConsole(sample.hiddenFromNyanCat);
