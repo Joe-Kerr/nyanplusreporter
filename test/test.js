@@ -125,6 +125,14 @@ test("Audio played.", function() {
 	});
 });
 
+test("Incorrect path to where Nyan Cat lives throws", ()=>{
+	const isoSample = new Sample(fakeRunner);
+	assert.throws(()=>{
+		isoSample.whereNyanCatLives = "c:/bollocks/nyan.wav";
+		isoSample.play();
+	});
+});
+
 test("Ctrl-c flushes console buffer", ()=>{	
 	sample.overrideConsole(sample.hiddenFromNyanCat);
 	console.log(".");	

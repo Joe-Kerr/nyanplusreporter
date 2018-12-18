@@ -120,6 +120,12 @@ NyanPlus.prototype.onSIGINT = function() {
 }
 
 NyanPlus.prototype.play = function() {
+	var isFile = require("fs").existsSync;
+	
+	if(!isFile(this.whereNyanCatLives)) {
+		throw new Error("Nyan cat audio file does not exist at: "+this.whereNyanCatLives);
+	}
+	
 	var _this = this;
 	player.play({
 		path: _this.whereNyanCatLives
