@@ -82,17 +82,22 @@ test("flushConsole() throws if parameter not an Array", ()=>{
 });
 
 test("restoreConsole() throws if restored console not 'native function' anymore", ()=>{
-	const isoSample = new Sample(fakeRunner);
 	const backup = console.log;
 	
-	assert.throws(()=>{
-		isoSample.realDeal = function() {return 123;}
-		isoSample.restoreConsole();		
-	});
+	try {
+		sample.realDeal = function() {return 123;}
+		sample.restoreConsole();	
+		
+		sample.realDeal = backup;
+		assert.ok(false);
+	}
+	catch(e) {
+		sample.realDeal = backup;
+		assert.ok(true);
+	}
 	
 	try {
-		isoSample.realDeal = backup;
-		isoSample.restoreConsole();		
+		sample.restoreConsole();		
 		assert.ok(true);
 	}
 	catch(e) {
@@ -126,11 +131,18 @@ test("Audio played.", function() {
 });
 
 test("Incorrect path to where Nyan Cat lives throws", ()=>{
-	const isoSample = new Sample(fakeRunner);
-	assert.throws(()=>{
-		isoSample.whereNyanCatLives = "c:/bollocks/nyan.wav";
-		isoSample.play();
-	});
+	const backup = sample.whereNyanCatLives;
+	try {
+		sample.whereNyanCatLives = "c:/bollocks/nyan.wav";
+		sample.play();
+		
+		sample.whereNyanCatLives = backup;
+		assert.ok(false);		
+	}
+	catch(e) {
+		sample.whereNyanCatLives = backup;
+		assert.ok(true);		
+	}
 });
 
 test("Ctrl-c flushes console buffer", ()=>{	
