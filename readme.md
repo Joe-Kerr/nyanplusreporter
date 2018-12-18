@@ -23,7 +23,7 @@ Append, or add to your mocha.opts either
 
 or
 
---reporter path/to/file.without js extension and relative to project root (e.g. "node_modeles/nyanPlusReporter/src/nyanPlus")
+--reporter path/to/file.without js extension and relative to project root (e.g. "node_modules/nyanPlusReporter/src/nyanPlus")
 
 depending on whether you have installed Mocha locally or globally (see e.g. https://stackoverflow.com/questions/21367820/how-to-create-a-custom-reporter-with-mocha).
 
@@ -53,6 +53,9 @@ depending on whether you have installed Mocha locally or globally (see e.g. http
 
 
 ## Versions
+
+### 0.10.4
+- Added: more error checking
 
 ### 0.10.3
 - Changed: Fix in dependency allows to test playback on Win7 now.
