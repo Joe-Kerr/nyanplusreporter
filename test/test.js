@@ -69,6 +69,38 @@ test("Console buffer is flushed", ()=>{
 	assert.equal(buffer.length, 0);
 });
 
+test("overrideConsole() throws if parameter not an Array", ()=>{
+	assert.throws(()=>{
+		sample.overrideConsole({log: ()=>{}});
+	});
+});
+
+test("flushConsole() throws if parameter not an Array", ()=>{
+	assert.throws(()=>{
+		sample.flushConsole({log: ()=>{}});
+	});	
+});
+
+test("restoreConsole() throws if restored console not 'native function' anymore", ()=>{
+	const isoSample = new Sample(fakeRunner);
+	const backup = console.log;
+	
+	assert.throws(()=>{
+		isoSample.realDeal = function() {return 123;}
+		isoSample.restoreConsole();		
+	});
+	
+	try {
+		isoSample.realDeal = backup;
+		isoSample.restoreConsole();		
+		assert.ok(true);
+	}
+	catch(e) {
+		console.log(e)
+		assert.ok(false);
+	}
+});
+
 //On slow computers, first run of this test may fail (timeout). Give it another shot and it will pass. Otherwise real fail.
 test("Audio played.", function() {
 	this.timeout(10000);
