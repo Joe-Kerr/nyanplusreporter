@@ -50,6 +50,10 @@ function NyanPlus(runner) {
 }
 
 NyanPlus.prototype.overrideConsole = function(buffer) {
+	if(!(buffer instanceof Array)) {
+		throw new Error("Parameter 'buffer' of overrideConsole must be an Array");
+	}
+	
 	this.realDeal = console.log;
 	
 	["log", "warn", "info", "error"].forEach(function(type) {
@@ -65,10 +69,19 @@ NyanPlus.prototype.restoreConsole = function() {
 	console.error = console.log;
 	console.info = console.log;
 	console.warn = console.log;
+	
+	if(typeof console.log !== "function" || console.log.toString().indexOf("[native code]") === -1) {
+		throw new Error("Failed to restore console. Did you override 'this.realDeal'?");
+	}
 }
 
 NyanPlus.prototype.flushConsole = function(buffer) {
+	if(!(buffer instanceof Array)) {
+		throw new Error("Parameter 'buffer' of flushConsole must be an Array");
+	}
+	
 	var i,ii; 
+	
 	for(i=0, ii=buffer.length; i<ii; i++) {
 		console.log.apply(null, buffer[i])
 	}	
@@ -107,6 +120,12 @@ NyanPlus.prototype.onSIGINT = function() {
 }
 
 NyanPlus.prototype.play = function() {
+	var isFile = require("fs").existsSync;
+	
+	if(!isFile(this.whereNyanCatLives)) {
+		throw new Error("Nyan cat audio file does not exist at: "+this.whereNyanCatLives);
+	}
+	
 	var _this = this;
 	player.play({
 		path: _this.whereNyanCatLives

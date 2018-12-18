@@ -69,6 +69,43 @@ test("Console buffer is flushed", ()=>{
 	assert.equal(buffer.length, 0);
 });
 
+test("overrideConsole() throws if parameter not an Array", ()=>{
+	assert.throws(()=>{
+		sample.overrideConsole({log: ()=>{}});
+	});
+});
+
+test("flushConsole() throws if parameter not an Array", ()=>{
+	assert.throws(()=>{
+		sample.flushConsole({log: ()=>{}});
+	});	
+});
+
+test("restoreConsole() throws if restored console not 'native function' anymore", ()=>{
+	const backup = console.log;
+	
+	try {
+		sample.realDeal = function() {return 123;}
+		sample.restoreConsole();	
+		
+		sample.realDeal = backup;
+		assert.ok(false);
+	}
+	catch(e) {
+		sample.realDeal = backup;
+		assert.ok(true);
+	}
+	
+	try {
+		sample.restoreConsole();		
+		assert.ok(true);
+	}
+	catch(e) {
+		console.log(e)
+		assert.ok(false);
+	}
+});
+
 //On slow computers, first run of this test may fail (timeout). Give it another shot and it will pass. Otherwise real fail.
 test("Audio played.", function() {
 	this.timeout(10000);
@@ -91,6 +128,21 @@ test("Audio played.", function() {
 		});	
 	
 	});
+});
+
+test("Incorrect path to where Nyan Cat lives throws", ()=>{
+	const backup = sample.whereNyanCatLives;
+	try {
+		sample.whereNyanCatLives = "c:/bollocks/nyan.wav";
+		sample.play();
+		
+		sample.whereNyanCatLives = backup;
+		assert.ok(false);		
+	}
+	catch(e) {
+		sample.whereNyanCatLives = backup;
+		assert.ok(true);		
+	}
 });
 
 test("Ctrl-c flushes console buffer", ()=>{	
